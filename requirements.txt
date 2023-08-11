@@ -21,7 +21,7 @@ GitPython==3.1.32
 greenlet==2.0.2
 idna==3.4
 kiwisolver==1.4.4
-langchain==0.0.261
+langchain==0.0.262
 langsmith==0.0.21
 multidict==6.0.4
 mypy-extensions==1.0.0
