@@ -1,7 +1,5 @@
 # from dotenv import load_dotenv
-import subprocess
-import sys
-subprocess.check_call([sys.executable, "-m", "pip", "install", "streamlit_chat"])
+
 import streamlit as st
 from streamlit_chat import message
 import os
