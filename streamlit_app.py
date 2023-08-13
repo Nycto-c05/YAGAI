@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_chat import message
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import openai
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import(
@@ -20,7 +20,7 @@ if(prompt):
     
 
 def main():
-    load_dotenv()
+    # load_dotenv()
     
     chat = ChatOpenAI(temperature=0.6, max_tokens=500,openai_api_key='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')
 # ***
