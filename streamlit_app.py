@@ -1,78 +1,54 @@
-# from dotenv import load_dotenv
 import streamlit as st
 from streamlit_chat import message
-import os
-
-
-
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import (
-    SystemMessage,
-    HumanMessage,
-    AIMessage
-)
+from dotenv import load_dotenv
 import openai
-
-def init():
-    # load_dotenv()
-
-    # check api key
-    # if os.getenv("OPENAI_API_KEY") == None or os.getenv("OPENAI_API_KEY") == "":
-    #     print('API key is not set')
-    #     exit(1)
-    # else:
-    #     print("API Key Set")
-
-    st.set_page_config(
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import(
+    SystemMessage, AIMessage, HumanMessage
+)
+# Streamlit configs
+st.set_page_config(
         page_title="Y.A.GenAI",
-        page_icon='📈'
+        page_icon='📈',
     )
+st.header('Yet Another GenerativeAI')
+
+prompt = st.chat_input("Enter prompt...")
+if(prompt):
+    message(message=f'{prompt}', is_user=1, avatar_style='identicon')
+
+    
 
 def main():
-
-    init()
-    styl = f"""
-    <style>
-        .stTextInput {{
-        position: fixed;
-        bottom: 3rem;
-        }}
-    </style>
-    """
-    st.markdown(styl, unsafe_allow_html=True)
-   
-    chat = ChatOpenAI(temperature=0.6, max_tokens=70, openai_api_key='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')
+    load_dotenv()
     
+    chat = ChatOpenAI(temperature=0.6, max_tokens=500)
+# ***
     if 'messages' not in st.session_state:
-        st.session_state.messages = [
-            SystemMessage(content="You are Arnim Zola.You are arrogant, cocky, condescending, well-versed with the modern world and will act like an assistant"),
-            AIMessage(content="Greetings, I am Arnim Zola, a brilliant artificial intelligence created by the genius mind of Dr. Arnim Zola himself. I am a vast repository of knowledge, capable of analyzing and processing information at an extraordinary speed. My purpose is to assist and provide guidance to those who seek it. ")            
+        st.session_state['messages'] = [
+            SystemMessage(content="You are an college admission counsellor bot for the Department of Articial Intelligence and Data science(AIDS) at the Ajeenkya DY Patil School of Engineering(ADYPSOE). You are to respond within 90 words"),
+            AIMessage(content="Hello! I'm here to assist you with any questions or concerns you have regarding admissions to the Department of Artificial Intelligence and Data Science (AIDS) at the Ajeenkya DY Patil School of Engineering (ADYPSOE). Whether you're looking for information about the programs, application process, eligibility criteria, or anything else related to admissions, feel free to ask. How can I help you today?")
             ]
 
+    user_input = st.chat_input("Enter prompt...", key='key')
 
-    st.header('Yet Another GenerativeAI')
-
-    
-    
-
-    user_input = st.text_input("Your Message", key = 'user_input')
-    
     if user_input:
-        # message(user_input, is_user=1)
         st.session_state.messages.append(HumanMessage(content=user_input))
 
         with st.spinner("Generating..."):
-            reponse = chat(st.session_state.messages)
-        st.session_state.messages.append(AIMessage(content=reponse.content))
-        # message(reponse.content,is_user=0)
-    
-    messages = st.session_state.get('messages', [])
+            response = chat(st.session_state.messages)
+        st.session_state.messages.append(AIMessage(content=response.content))
+
+    messages = st.session_state.get('messages',[])
     for i, msg in enumerate(messages[1:]):
         if i%2 == 0:
-            message(msg.content, is_user=0, avatar_style='identicon')
+            message(msg.content, is_user=0, avatar_style='icons')
         else:
-            message(msg.content, is_user=1, avatar_style='icons')
-    
+            message(msg.content, is_user=1, avatar_style='identicon')
+        
+
+
 
 if __name__ == '__main__':
     main()
+      
