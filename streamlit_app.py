@@ -22,7 +22,7 @@ if(prompt):
 def main():
     # load_dotenv()
     
-    chat = ChatOpenAI(temperature=0.6, max_tokens=500,openai_api_key='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')
+    chat = ChatOpenAI(temperature=0.6, max_tokens=500,openai_api_key='')
 # ***
     if 'messages' not in st.session_state:
         st.session_state['messages'] = [
